@@ -1,0 +1,95 @@
+openapi: 3.0.1
+info:
+  title: Reactive Customer API
+  description: Reactive API to manage customer accounts
+  version: "1.0"
+paths:
+  /customer:
+    post:
+      summary: Create a new customer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateCustomerRequest'
+      responses:
+        "200":
+          description: Successfully created customer
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CreateCustomerResponse'
+
+components:
+  schemas:
+    CreateCustomerRequest:
+      type: object
+      properties:
+        data:
+          $ref: '#/components/schemas/Data'
+      required:
+        - data
+    CreateCustomerResponse:
+      type: object
+      properties:
+        data:
+          $ref: '#/components/schemas/Data'
+    Data:
+      type: object
+      properties:
+        accountStatus:
+          type: string    # Changed to simple string from enum
+          description: "The status of the account"
+        lockedAccount:
+          type: boolean
+        membershipId:
+          type: string
+        customerId:
+          type: string
+        individual:
+          $ref: '#/components/schemas/Individual'
+      required:
+        - accountStatus
+        - individual
+    Individual:
+      type: object
+      properties:
+        identity:
+          $ref: '#/components/schemas/Identity'
+        contact:
+          $ref: '#/components/schemas/Contact'
+      required:
+        - identity
+        - contact
+    Identity:
+      type: object
+      properties:
+        firstName:
+          type: string
+          minLength: 1
+          maxLength: 50
+        lastName:
+          type: string
+          minLength: 1
+          maxLength: 50
+      required:
+        - firstName
+        - lastName
+    Contact:
+      type: object
+      properties:
+        emails:
+          type: array
+          maxItems: 1
+          items:
+            type: string
+            format: email
+        phones:
+          type: array
+          maxItems: 1
+          items:
+            type: string
+      required:
+        - emails
+        - phones

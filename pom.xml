@@ -5,7 +5,7 @@
 	<parent>
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
-		<version>3.3.3</version>
+		<version>2.7.11</version>
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.example</groupId>
@@ -66,6 +66,7 @@
 			<artifactId>reactor-test</artifactId>
 			<scope>test</scope>
 		</dependency>
+
 		<dependency>
 			<groupId>org.springframework.security</groupId>
 			<artifactId>spring-security-test</artifactId>
@@ -86,6 +87,35 @@
 						</exclude>
 					</excludes>
 				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>io.swagger.codegen.v3</groupId>
+				<artifactId>swagger-codegen-maven-plugin</artifactId>
+				<version>3.0.29</version> <!-- Make sure to use the latest version -->
+				<executions>
+					<execution>
+						<goals>
+							<goal>generate</goal>
+						</goals>
+						<configuration>
+							<!-- Location of the OpenAPI specification file -->
+							<inputSpec>${project.basedir}/src/main/resources/swagger/customer-api.yaml</inputSpec>
+							<!-- Output directory for gecnerated code -->
+<!--							<output>${project.build.directory}/generated-sources/swagger</output>-->
+							<!-- Language to generate the code in (in this case, Spring) -->
+<!--							<lang>spring</lang>-->
+							<configOptions>
+								<sourceFolder>src/java</sourceFolder>
+								<interfaceOnly>true</interfaceOnly>
+								<useBeanValidation>true</useBeanValidation>
+							</configOptions>
+							<!-- Define where the API files should be generated -->
+							<apiPackage>com.example.customer_app.api</apiPackage>
+							<modelPackage>com.example.customer_app.model</modelPackage>
+							<language>spring</language>
+						</configuration>
+					</execution>
+				</executions>
 			</plugin>
 		</plugins>
 	</build>

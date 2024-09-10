@@ -1,13 +1,14 @@
 package com.example.customer_app.payloads;
 
 import com.example.customer_app.constant.AccountStatus;
-import jakarta.validation.Valid;
-import jakarta.validation.constraints.NotEmpty;
-import jakarta.validation.constraints.Size;
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import javax.validation.Valid;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.Size;
 import java.util.List;
 
 @Data
@@ -24,7 +25,7 @@ public class AccountRequest {
     public static class DataPayload {
         private AccountStatus accountStatus;
         private boolean lockedAccount;
-        
+
         @NotEmpty
         private String membershipId;
 
